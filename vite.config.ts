@@ -12,4 +12,31 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle lazily discovered deps so the dev server doesn't re-optimize mid-load
+    // (which serves stale chunk hashes and breaks dynamic route imports).
+    optimizeDeps: {
+      include: [
+        "ai",
+        "@ai-sdk/react",
+        "streamdown",
+        "motion/react",
+        "nanoid",
+        "use-stick-to-bottom",
+        "cmdk",
+        "jszip",
+        "pdfjs-dist",
+        "recharts",
+        "@radix-ui/react-progress",
+        "@radix-ui/react-select",
+        "@radix-ui/react-tabs",
+        "@radix-ui/react-slider",
+        "@radix-ui/react-dropdown-menu",
+        "@radix-ui/react-hover-card",
+        "@radix-ui/react-separator",
+        "@radix-ui/react-tooltip",
+        "@radix-ui/react-dialog",
+      ],
+    },
+  },
 });
