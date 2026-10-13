@@ -26,7 +26,7 @@ export const getAiStatus = createServerFn({ method: "GET" }).handler(async () =>
 /* ------------------------------------------------------------------ */
 export const describeFigure = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z.object({ dataUrl: z.string().startsWith("data:image/").max(6_000_000), context: z.string().max(300) }).parse(d),
   )
   .handler(async ({ data }) => {
@@ -53,7 +53,7 @@ export const describeFigure = createServerFn({ method: "POST" })
 /* ------------------------------------------------------------------ */
 export const ingestDocument = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({ documentId: z.string().uuid(), chunks: z.array(chunkSchema).max(3000), warnings: z.array(z.string()).max(20) })
       .parse(d),
@@ -177,7 +177,7 @@ function shuffle<T>(arr: T[]) {
 
 export const generateQuiz = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         courseId: z.string().uuid(),
@@ -360,7 +360,7 @@ export const generateQuiz = createServerFn({ method: "POST" })
 
 export const answerQuestion = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z.object({ quizId: z.string().uuid(), questionId: z.string().uuid(), selected: z.number().int().min(0).max(3) }).parse(d),
   )
   .handler(async ({ data, context }) => {
@@ -400,7 +400,7 @@ export const answerQuestion = createServerFn({ method: "POST" })
 
 export const finishQuiz = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ quizId: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ quizId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase } = context;
     const { data: at } = await supabase.from("attempts").select("correct").eq("quiz_id", data.quizId);
@@ -414,7 +414,7 @@ export const finishQuiz = createServerFn({ method: "POST" })
 /* ------------------------------------------------------------------ */
 export const evaluateRagItem = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
+  .validator((d: unknown) =>
     z
       .object({
         question: z.string().max(500),
