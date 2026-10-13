@@ -15,6 +15,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedLibraryIndexRouteImport } from './routes/_authenticated/library.index'
 import { Route as AuthenticatedLibraryDocIdRouteImport } from './routes/_authenticated/library.$docId'
+import { Route as AuthenticatedTutorIndexRouteImport } from './routes/_authenticated/tutor.index'
+import { Route as AuthenticatedTutorThreadIdRouteImport } from './routes/_authenticated/tutor.$threadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,20 +49,35 @@ const AuthenticatedLibraryDocIdRoute =
     path: '/library/$docId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedTutorIndexRoute = AuthenticatedTutorIndexRouteImport.update({
+  id: '/tutor/',
+  path: '/tutor/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTutorThreadIdRoute =
+  AuthenticatedTutorThreadIdRouteImport.update({
+    id: '/tutor/$threadId',
+    path: '/tutor/$threadId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/tutor': typeof ApiTutorRoute
   '/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/library/': typeof AuthenticatedLibraryIndexRoute
+  '/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/api/tutor': typeof ApiTutorRoute
   '/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/library': typeof AuthenticatedLibraryIndexRoute
+  '/tutor': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,13 +86,29 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/_authenticated/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/_authenticated/library/': typeof AuthenticatedLibraryIndexRoute
+  '/_authenticated/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/api/tutor' | '/library/$docId' | '/library/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/api/tutor'
+    | '/library/$docId'
+    | '/tutor/$threadId'
+    | '/library/'
+    | '/tutor/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/api/tutor' | '/library/$docId' | '/library'
+  to:
+    | '/'
+    | '/auth'
+    | '/api/tutor'
+    | '/library/$docId'
+    | '/tutor/$threadId'
+    | '/library'
+    | '/tutor'
   id:
     | '__root__'
     | '/'
@@ -83,7 +116,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/api/tutor'
     | '/_authenticated/library/$docId'
+    | '/_authenticated/tutor/$threadId'
     | '/_authenticated/library/'
+    | '/_authenticated/tutor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -137,17 +172,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLibraryDocIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/tutor/': {
+      id: '/_authenticated/tutor/'
+      path: '/tutor'
+      fullPath: '/tutor/'
+      preLoaderRoute: typeof AuthenticatedTutorIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tutor/$threadId': {
+      id: '/_authenticated/tutor/$threadId'
+      path: '/tutor/$threadId'
+      fullPath: '/tutor/$threadId'
+      preLoaderRoute: typeof AuthenticatedTutorThreadIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedLibraryDocIdRoute: typeof AuthenticatedLibraryDocIdRoute
+  AuthenticatedTutorThreadIdRoute: typeof AuthenticatedTutorThreadIdRoute
   AuthenticatedLibraryIndexRoute: typeof AuthenticatedLibraryIndexRoute
+  AuthenticatedTutorIndexRoute: typeof AuthenticatedTutorIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLibraryDocIdRoute: AuthenticatedLibraryDocIdRoute,
+  AuthenticatedTutorThreadIdRoute: AuthenticatedTutorThreadIdRoute,
   AuthenticatedLibraryIndexRoute: AuthenticatedLibraryIndexRoute,
+  AuthenticatedTutorIndexRoute: AuthenticatedTutorIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
