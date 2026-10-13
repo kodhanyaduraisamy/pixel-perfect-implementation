@@ -15,6 +15,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedLibraryIndexRouteImport } from './routes/_authenticated/library.index'
 import { Route as AuthenticatedLibraryDocIdRouteImport } from './routes/_authenticated/library.$docId'
+import { Route as AuthenticatedQuizIndexRouteImport } from './routes/_authenticated/quiz.index'
+import { Route as AuthenticatedQuizQuizIdRouteImport } from './routes/_authenticated/quiz.$quizId'
 import { Route as AuthenticatedTutorIndexRouteImport } from './routes/_authenticated/tutor.index'
 import { Route as AuthenticatedTutorThreadIdRouteImport } from './routes/_authenticated/tutor.$threadId'
 
@@ -49,6 +51,16 @@ const AuthenticatedLibraryDocIdRoute =
     path: '/library/$docId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedQuizIndexRoute = AuthenticatedQuizIndexRouteImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedQuizQuizIdRoute = AuthenticatedQuizQuizIdRouteImport.update({
+  id: '/quiz/$quizId',
+  path: '/quiz/$quizId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedTutorIndexRoute = AuthenticatedTutorIndexRouteImport.update({
   id: '/tutor/',
   path: '/tutor/',
@@ -66,8 +78,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/api/tutor': typeof ApiTutorRoute
   '/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/quiz/$quizId': typeof AuthenticatedQuizQuizIdRoute
   '/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/library/': typeof AuthenticatedLibraryIndexRoute
+  '/quiz/': typeof AuthenticatedQuizIndexRoute
   '/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesByTo {
@@ -75,8 +89,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/api/tutor': typeof ApiTutorRoute
   '/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/quiz/$quizId': typeof AuthenticatedQuizQuizIdRoute
   '/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/library': typeof AuthenticatedLibraryIndexRoute
+  '/quiz': typeof AuthenticatedQuizIndexRoute
   '/tutor': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesById {
@@ -86,8 +102,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/_authenticated/quiz/$quizId': typeof AuthenticatedQuizQuizIdRoute
   '/_authenticated/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/_authenticated/library/': typeof AuthenticatedLibraryIndexRoute
+  '/_authenticated/quiz/': typeof AuthenticatedQuizIndexRoute
   '/_authenticated/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,8 +115,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/api/tutor'
     | '/library/$docId'
+    | '/quiz/$quizId'
     | '/tutor/$threadId'
     | '/library/'
+    | '/quiz/'
     | '/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -106,8 +126,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/api/tutor'
     | '/library/$docId'
+    | '/quiz/$quizId'
     | '/tutor/$threadId'
     | '/library'
+    | '/quiz'
     | '/tutor'
   id:
     | '__root__'
@@ -116,8 +138,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/api/tutor'
     | '/_authenticated/library/$docId'
+    | '/_authenticated/quiz/$quizId'
     | '/_authenticated/tutor/$threadId'
     | '/_authenticated/library/'
+    | '/_authenticated/quiz/'
     | '/_authenticated/tutor/'
   fileRoutesById: FileRoutesById
 }
@@ -172,6 +196,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLibraryDocIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/quiz/': {
+      id: '/_authenticated/quiz/'
+      path: '/quiz'
+      fullPath: '/quiz/'
+      preLoaderRoute: typeof AuthenticatedQuizIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/quiz/$quizId': {
+      id: '/_authenticated/quiz/$quizId'
+      path: '/quiz/$quizId'
+      fullPath: '/quiz/$quizId'
+      preLoaderRoute: typeof AuthenticatedQuizQuizIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tutor/': {
       id: '/_authenticated/tutor/'
       path: '/tutor'
@@ -191,15 +229,19 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedLibraryDocIdRoute: typeof AuthenticatedLibraryDocIdRoute
+  AuthenticatedQuizQuizIdRoute: typeof AuthenticatedQuizQuizIdRoute
   AuthenticatedTutorThreadIdRoute: typeof AuthenticatedTutorThreadIdRoute
   AuthenticatedLibraryIndexRoute: typeof AuthenticatedLibraryIndexRoute
+  AuthenticatedQuizIndexRoute: typeof AuthenticatedQuizIndexRoute
   AuthenticatedTutorIndexRoute: typeof AuthenticatedTutorIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLibraryDocIdRoute: AuthenticatedLibraryDocIdRoute,
+  AuthenticatedQuizQuizIdRoute: AuthenticatedQuizQuizIdRoute,
   AuthenticatedTutorThreadIdRoute: AuthenticatedTutorThreadIdRoute,
   AuthenticatedLibraryIndexRoute: AuthenticatedLibraryIndexRoute,
+  AuthenticatedQuizIndexRoute: AuthenticatedQuizIndexRoute,
   AuthenticatedTutorIndexRoute: AuthenticatedTutorIndexRoute,
 }
 
