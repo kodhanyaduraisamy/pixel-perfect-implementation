@@ -12,9 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEvaluationRouteImport } from './routes/_authenticated/evaluation'
+import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedLibraryIndexRouteImport } from './routes/_authenticated/library.index'
 import { Route as AuthenticatedLibraryDocIdRouteImport } from './routes/_authenticated/library.$docId'
+import { Route as AuthenticatedQuizIndexRouteImport } from './routes/_authenticated/quiz.index'
+import { Route as AuthenticatedQuizQuizIdRouteImport } from './routes/_authenticated/quiz.$quizId'
 import { Route as AuthenticatedTutorIndexRouteImport } from './routes/_authenticated/tutor.index'
 import { Route as AuthenticatedTutorThreadIdRouteImport } from './routes/_authenticated/tutor.$threadId'
 
@@ -31,6 +37,26 @@ const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEvaluationRoute = AuthenticatedEvaluationRouteImport.update({
+  id: '/evaluation',
+  path: '/evaluation',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiTutorRoute = ApiTutorRouteImport.update({
   id: '/api/tutor',
@@ -49,6 +75,16 @@ const AuthenticatedLibraryDocIdRoute =
     path: '/library/$docId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedQuizIndexRoute = AuthenticatedQuizIndexRouteImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedQuizQuizIdRoute = AuthenticatedQuizQuizIdRouteImport.update({
+  id: '/quiz/$quizId',
+  path: '/quiz/$quizId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedTutorIndexRoute = AuthenticatedTutorIndexRouteImport.update({
   id: '/tutor/',
   path: '/tutor/',
@@ -64,19 +100,31 @@ const AuthenticatedTutorThreadIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/evaluation': typeof AuthenticatedEvaluationRoute
+  '/insights': typeof AuthenticatedInsightsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/api/tutor': typeof ApiTutorRoute
   '/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/quiz/$quizId': typeof AuthenticatedQuizQuizIdRoute
   '/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/library/': typeof AuthenticatedLibraryIndexRoute
+  '/quiz/': typeof AuthenticatedQuizIndexRoute
   '/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/evaluation': typeof AuthenticatedEvaluationRoute
+  '/insights': typeof AuthenticatedInsightsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/api/tutor': typeof ApiTutorRoute
   '/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/quiz/$quizId': typeof AuthenticatedQuizQuizIdRoute
   '/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/library': typeof AuthenticatedLibraryIndexRoute
+  '/quiz': typeof AuthenticatedQuizIndexRoute
   '/tutor': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRoutesById {
@@ -84,10 +132,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/evaluation': typeof AuthenticatedEvaluationRoute
+  '/_authenticated/insights': typeof AuthenticatedInsightsRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/library/$docId': typeof AuthenticatedLibraryDocIdRoute
+  '/_authenticated/quiz/$quizId': typeof AuthenticatedQuizQuizIdRoute
   '/_authenticated/tutor/$threadId': typeof AuthenticatedTutorThreadIdRoute
   '/_authenticated/library/': typeof AuthenticatedLibraryIndexRoute
+  '/_authenticated/quiz/': typeof AuthenticatedQuizIndexRoute
   '/_authenticated/tutor/': typeof AuthenticatedTutorIndexRoute
 }
 export interface FileRouteTypes {
@@ -95,29 +149,47 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/dashboard'
+    | '/evaluation'
+    | '/insights'
+    | '/settings'
     | '/api/tutor'
     | '/library/$docId'
+    | '/quiz/$quizId'
     | '/tutor/$threadId'
     | '/library/'
+    | '/quiz/'
     | '/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/dashboard'
+    | '/evaluation'
+    | '/insights'
+    | '/settings'
     | '/api/tutor'
     | '/library/$docId'
+    | '/quiz/$quizId'
     | '/tutor/$threadId'
     | '/library'
+    | '/quiz'
     | '/tutor'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/evaluation'
+    | '/_authenticated/insights'
+    | '/_authenticated/settings'
     | '/api/tutor'
     | '/_authenticated/library/$docId'
+    | '/_authenticated/quiz/$quizId'
     | '/_authenticated/tutor/$threadId'
     | '/_authenticated/library/'
+    | '/_authenticated/quiz/'
     | '/_authenticated/tutor/'
   fileRoutesById: FileRoutesById
 }
@@ -151,6 +223,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/evaluation': {
+      id: '/_authenticated/evaluation'
+      path: '/evaluation'
+      fullPath: '/evaluation'
+      preLoaderRoute: typeof AuthenticatedEvaluationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/insights': {
+      id: '/_authenticated/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof AuthenticatedInsightsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/tutor': {
       id: '/api/tutor'
       path: '/api/tutor'
@@ -172,6 +272,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLibraryDocIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/quiz/': {
+      id: '/_authenticated/quiz/'
+      path: '/quiz'
+      fullPath: '/quiz/'
+      preLoaderRoute: typeof AuthenticatedQuizIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/quiz/$quizId': {
+      id: '/_authenticated/quiz/$quizId'
+      path: '/quiz/$quizId'
+      fullPath: '/quiz/$quizId'
+      preLoaderRoute: typeof AuthenticatedQuizQuizIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tutor/': {
       id: '/_authenticated/tutor/'
       path: '/tutor'
@@ -190,16 +304,28 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEvaluationRoute: typeof AuthenticatedEvaluationRoute
+  AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedLibraryDocIdRoute: typeof AuthenticatedLibraryDocIdRoute
+  AuthenticatedQuizQuizIdRoute: typeof AuthenticatedQuizQuizIdRoute
   AuthenticatedTutorThreadIdRoute: typeof AuthenticatedTutorThreadIdRoute
   AuthenticatedLibraryIndexRoute: typeof AuthenticatedLibraryIndexRoute
+  AuthenticatedQuizIndexRoute: typeof AuthenticatedQuizIndexRoute
   AuthenticatedTutorIndexRoute: typeof AuthenticatedTutorIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEvaluationRoute: AuthenticatedEvaluationRoute,
+  AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedLibraryDocIdRoute: AuthenticatedLibraryDocIdRoute,
+  AuthenticatedQuizQuizIdRoute: AuthenticatedQuizQuizIdRoute,
   AuthenticatedTutorThreadIdRoute: AuthenticatedTutorThreadIdRoute,
   AuthenticatedLibraryIndexRoute: AuthenticatedLibraryIndexRoute,
+  AuthenticatedQuizIndexRoute: AuthenticatedQuizIndexRoute,
   AuthenticatedTutorIndexRoute: AuthenticatedTutorIndexRoute,
 }
 

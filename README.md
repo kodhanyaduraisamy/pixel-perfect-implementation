@@ -1,29 +1,15 @@
-# Welcome to your Lovable project
+# StudyLens AI
 
-This project was built with [Lovable](https://lovable.dev).
+AI study companion (Multimodal AI Hackathon 2026 · Track D) that tutors, quizzes and tracks mastery using only the student's uploaded course materials.
 
-## Build with Lovable
+## Core flow
+Upload (PDF / PPTX / VTT·SRT·TXT transcripts / notes / diagram images) → extract text in the browser with page, slide or timestamp → scanned pages & images are described by a vision model → chunks indexed with full-text search and organised into topics, subtopics and prerequisites → AI Tutor retrieves passages and answers with `[S#]` citations (or says "I couldn't verify this from your uploaded materials.") → Adaptive Quiz generates MCQs from retrieved passages and verifies each answer key (verbatim evidence quote + independent solver) → Bayesian Knowledge Tracing updates per-topic mastery → recommendations on Dashboard & Insights.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Setup
+Runs on Lovable Cloud (auth, database, file storage) and Lovable AI (no API key to manage). Sign up with email or Google, then use **Study Library → Load demo course** to try everything with clearly labelled demo material.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Evaluation
+The Evaluation page runs a fixed answerable/unanswerable test set against the demo course and scores faithfulness, answer relevancy, context precision and context recall with an AI judge. Unrun tests display "not run". A seeded simulated-student evaluation checks mastery convergence and question repetition.
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+## Tests
+`bunx vitest run` — mastery model and simulation rules.
