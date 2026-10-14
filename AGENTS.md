@@ -15,4 +15,4 @@
 - All AI calls go through `src/lib/ai/gateway.server.ts` (streamed Responses API); the tutor streams from the `/api/tutor` server route, which verifies the bearer token itself.
 - Mastery logic lives only in `src/lib/mastery.ts` (BKT) and is covered by `src/test/mastery.test.ts`; never duplicate the formula elsewhere.
 - tsconfig keeps `strict` but disables exactOptionalPropertyTypes/noUncheckedIndexedAccess/noPropertyAccessFromIndexSignature/noImplicitReturns — generated UI kits and Supabase types conflict with them.
-- .env (public backend URL + publishable key only) stays committed; ignoring it strips the backend config from publish builds.
+- vite.config.ts defines public VITE_SUPABASE_* fallbacks so publish builds connect even when .env is absent.
