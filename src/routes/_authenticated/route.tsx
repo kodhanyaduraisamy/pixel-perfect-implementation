@@ -23,8 +23,16 @@ import { useUser } from "@/lib/queries";
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
   beforeLoad: async ({ location }) => {
-    const { data } = await supabase.auth.getUser();
-    if (!data.user) throw redirect({ to: "/auth", search: { redirect: location.href } });
+    let user = null;
+    try {
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    } catch (e) {
+      // Backend not configured in this build (e.g. stale publish): fall back to the landing page.
+      console.error(e);
+      throw redirect({ to: "/" });
+    }
+    if (!user) throw redirect({ to: "/auth", search: { redirect: location.href } });
   },
   component: AppShell,
 });
